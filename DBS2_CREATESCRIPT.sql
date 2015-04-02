@@ -1,3 +1,5 @@
+--Java(TM) Platform	1.7.0_55, ssOracle IDE	4.0.3.16.84
+
 DROP TABLE DBS2_POSTALCODE CASCADE CONSTRAINTS;
 DROP TABLE DBS2_USER CASCADE CONSTRAINTS;
 DROP TABLE DBS2_CATEGORY CASCADE CONSTRAINTS;
@@ -23,7 +25,7 @@ CREATE TABLE DBS2_USER
   userPassword VARCHAR2(20) NOT NULL,
   postalcode VARCHAR2(20) NOT NULL,
   email VARCHAR2(100) NOT NULL,
-  phoneNumber VARCHAR2(20) DEFAULT 'unknown',
+  phoneNumber VARCHAR2(20),
   emailPref NUMBER(1,0) DEFAULT 0,
   paymentPref NUMBER(1,0) DEFAULT 0,
   receiptPref NUMBER(1,0) DEFAULT 0
@@ -117,7 +119,8 @@ ALTER TABLE DBS2_OFFER
 
 ALTER TABLE DBS2_PHOTO
   ADD CONSTRAINT FK_PHOTO_advertID2 FOREIGN KEY (advertID) REFERENCES DBS2_ADVERT(advertID);
-  
+
+--testdata zelfbedacht
 INSERT INTO DBS2_POSTALCODE
   (postalcode, xCoord, yCoord)
 VALUES
@@ -132,6 +135,16 @@ INSERT INTO DBS2_POSTALCODE
   (postalcode, xCoord, yCoord)
 VALUES
  ('1565HJ', 25, 25);
+
+INSERT INTO DBS2_POSTALCODE
+  (postalcode, xCoord, yCoord)
+VALUES
+  ('4345JS', 43,97);
+  
+INSERT INTO DBS2_POSTALCODE
+  (postalcode, xCoord, yCoord)
+VALUES
+  ('1349HA', 49, 12);
  
 INSERT INTO DBS2_USER
   (userID, username, userPassword, postalcode, email,  phoneNumber)
@@ -148,6 +161,16 @@ INSERT INTO DBS2_USER
 VALUES
   (3, 'bram,', 'hond', '1344DG', 'bram@live.nl', 013558738);
   
+INSERT INTO DBS2_USER
+  (userID, username, userPassword, postalcode, email, phoneNumber)
+VALUES
+  (4, 'tom', 'neushoorn', '1565HJ', 'TOM@live.nl', 013558738);
+  
+INSERT INTO DBS2_USER
+  (userID, username, userPassword, postalcode, email, phoneNumber)
+VALUES
+  (5, 'albert', 'wezel', '4345JS', 'albert@hotmail.com', 06543378);
+  
 INSERT INTO DBS2_CATEGORY
   (categoryID, categoryName)
 VALUES
@@ -157,6 +180,16 @@ INSERT INTO DBS2_CATEGORY
   (categoryID, categoryName)
 VALUES
   (2, 'kleding');
+  
+INSERT INTO DBS2_CATEGORY
+  (categoryID, categoryName)
+VALUES
+  (3, 'spellen');
+  
+INSERT INTO DBS2_CATEGORY
+  (categoryID, categoryName)
+VALUES
+  (4, 'muziek');
   
 INSERT INTO DBS2_SUBCATEGORY
   (subcategoryID, subcategoryName, categoryID)
@@ -178,15 +211,25 @@ INSERT INTO DBS2_SUBCATEGORY
 VALUES
   (4, 'broeken', 2);
   
+INSERT INTO DBS2_SUBCATEGORY
+  (subcategoryID, subcategoryName, categoryID)
+VALUES
+  (5, 'kaartspellen', 3);
+  
+INSERT INTO DBS2_SUBCATEGORY
+  (subcategoryID, subcategoryName, categoryID)
+VALUES
+  (6, 'gezelschapsspellen', 3);
+  
 INSERT INTO DBS2_ADVERT
   (advertID, title, description, serviceOrGood, userID, subcategoryID)
 VALUES
   (1, 'goedkope koptelefoon', 'goedkope koptelefoon mooie zwarte kleur, zeer zachte ongeveer passende oorkussentjes', 0, 1, 1);
 
 INSERT INTO DBS2_ADVERT
-  (advertID, title, description, serviceOrGood, userID, subcategoryID)
+  (advertID, title, description, serviceOrGood, userID, subcategoryID, similarAdvertID)
 VALUES
-  (2, 'goedkope koptelefoon nummer 2', 'goedkope koptelefoon linkeroortje wertk zeer goed rechteroortje werkt wat minder aka helemaal niet', 0, 1, 1);
+  (2, 'goedkope koptelefoon nummer 2', 'goedkope koptelefoon linkeroortje wertk zeer goed rechteroortje werkt wat minder aka helemaal niet', 0, 1, 1, 1);
   
 INSERT INTO DBS2_ADVERT
   (advertID, title, description, serviceOrGood, userID, subcategoryID)
@@ -262,8 +305,3 @@ INSERT INTO DBS2_PHOTO
   (photoID, path, advertID)
 VALUES
   (4, 'C:\adverts\photos\mooiekoptelefoon2.jpg', 2);
-
-INSERT INTO DBS2_PHOTO
-  (photoID, path, advertID)
-VALUES
-  (5, 'C:\adverts\photos\laklaarszijkant.jpg', 3);
