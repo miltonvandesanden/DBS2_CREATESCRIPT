@@ -46,7 +46,7 @@ CREATE TABLE DBS2_ADVERT
 (
   advertID NUMBER(4,0) PRIMARY KEY,
   title VARCHAR2(20) NOT NULL,
-  discription VARCHAR2(200) NOT NULL,
+  description VARCHAR2(200) NOT NULL,
   creationDate DATE DEFAULT sysdate,
   advertViews NUMBER(4,0) DEFAULT 0,
   serviceOrGood NUMBER(1,0) NOT NULL,
@@ -117,3 +117,63 @@ ALTER TABLE DBS2_OFFER
 
 ALTER TABLE DBS2_PHOTO
   ADD CONSTRAINT FK_PHOTO_advertID2 FOREIGN KEY (advertID) REFERENCES ADVERT(advertID);
+  
+INSERT INTO DBS2_POSTALCODE
+  (postalcode, xCoord, yCoord)
+VALUES
+  ('5013CA', 0, 0);
+  
+INSERT INTO DBS2_POSTALCODE
+  (postalcode, xCoord, yCoord)
+VALUES
+  ('1344DG', 50, 50);
+  
+INSERT INTO DBS2_POSTALCODE
+  (postalcode, xCoord, yCoord)
+VALUES
+ ('1565HJ', 25, 25);
+ 
+INSERT INTO DBS2_USER
+  (userID, username, userPassword, postalcode, email,  phoneNumber)
+VALUES
+  (1, 'milton', 'aap', '5013CA', 'milton@live.nl', 0135433089);
+  
+INSERT INTO DBS2_USER
+  (userID, username, userPassword, postalcode, email,  phoneNumber)
+VALUES
+  (2, 'zelia', 'tijger', '5013CA', 'zelia@live.nl', 0135433089);
+  
+INSERT INTO DBS2_USER
+  (userID, username, userPassword, postalcode, email,  phoneNumber)
+VALUES
+  (3, 'bram,', 'hond', '1344DG', 'bram@live.nl', 013558738);
+  
+INSERT INTO DBS2_CATEGORY
+  (categoryID, categoryName)
+VALUES
+  (1, 'computers');
+  
+INSERT INTO DBS2_CATEGORY
+  (categoryID, categoryName)
+VALUES
+  (2, 'kleding');
+  
+INSERT INTO DBS2_SUBCATEGORY
+  (subcategoryID, subcategoryName, categoryID)
+VALUES
+  (1, 'accesoires', 1);
+  
+INSERT INTO DBS2_SUBCATEGORY
+  (subcategoryID, subcategoryName, categoryID)
+VALUES
+  (2, 'onderdelen', 1);
+  
+INSERT INTO DBS2_SUBCATEGORY
+  (subcategoryID, subcategoryName, categoryID)
+VALUES
+  (3, 'schoenen', 2);
+  
+INSERT INTO DBS2_SUBCATEGORY
+  (subcategoryID, subcategoryName, categoryID)
+VALUES
+  (4, 'broeken', 2);
