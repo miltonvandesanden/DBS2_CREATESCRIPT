@@ -45,14 +45,14 @@ CREATE TABLE DBS2_SUBCATEGORY
 CREATE TABLE DBS2_ADVERT
 (
   advertID NUMBER(4,0) PRIMARY KEY,
-  title VARCHAR2(20) NOT NULL,
+  title VARCHAR2(500) NOT NULL,
   description VARCHAR2(200) NOT NULL,
   creationDate DATE DEFAULT sysdate,
   advertViews NUMBER(4,0) DEFAULT 0,
   serviceOrGood NUMBER(1,0) NOT NULL,
   userID NUMBER(4,0) NOT NULL,
   subcategoryID NUMBER(4,0) NOT NULL,
-  similarAdvertID NUMBER(4,0) NOT NULL
+  similarAdvertID NUMBER(4,0)
 );
 
 CREATE TABLE DBS2_SERVICE
@@ -81,13 +81,13 @@ CREATE TABLE DBS2_OFFER
   offerID NUMBER(4,0) PRIMARY KEY,
   userID NUMBER(4,0) NOT NULL,
   advertID NUMBER(4,0) NOT NULL,
-  amount NUMBER(4,2) NOT NULL
+  amount NUMBER(20,2) NOT NULL
 );
 
 CREATE TABLE DBS2_PHOTO
 (
   photoID NUMBER(4,0) PRIMARY KEY,
-  path VARCHAR2(20) NOT NULL,
+  path VARCHAR2(500) NOT NULL,
   advertID NUMBER(4,0) NOT NULL
 );
 
@@ -116,7 +116,7 @@ ALTER TABLE DBS2_OFFER
   ADD CONSTRAINT CH_OFFER_amount CHECK (amount > 0);
 
 ALTER TABLE DBS2_PHOTO
-  ADD CONSTRAINT FK_PHOTO_advertID2 FOREIGN KEY (advertID) REFERENCES ADVERT(advertID);
+  ADD CONSTRAINT FK_PHOTO_advertID2 FOREIGN KEY (advertID) REFERENCES DBS2_ADVERT(advertID);
   
 INSERT INTO DBS2_POSTALCODE
   (postalcode, xCoord, yCoord)
@@ -177,3 +177,93 @@ INSERT INTO DBS2_SUBCATEGORY
   (subcategoryID, subcategoryName, categoryID)
 VALUES
   (4, 'broeken', 2);
+  
+INSERT INTO DBS2_ADVERT
+  (advertID, title, description, serviceOrGood, userID, subcategoryID)
+VALUES
+  (1, 'goedkope koptelefoon', 'goedkope koptelefoon mooie zwarte kleur, zeer zachte ongeveer passende oorkussentjes', 0, 1, 1);
+
+INSERT INTO DBS2_ADVERT
+  (advertID, title, description, serviceOrGood, userID, subcategoryID)
+VALUES
+  (2, 'goedkope koptelefoon nummer 2', 'goedkope koptelefoon linkeroortje wertk zeer goed rechteroortje werkt wat minder aka helemaal niet', 0, 1, 1);
+  
+INSERT INTO DBS2_ADVERT
+  (advertID, title, description, serviceOrGood, userID, subcategoryID)
+VALUES
+  (3, 'laklaars', 'kniehoge laklaars met ritssluiting, maat 38', 0, 2, 3);
+
+INSERT INTO DBS2_ADVERT
+  (advertID, title, description, serviceOrGood, userID, subcategoryID)
+VALUES
+  (4, 'computer reparatie', 'ik zal uw pc zeer snel repareren', 1, 3, 2);
+
+INSERT INTO DBS2_SERVICE
+  (advertID, experience, employees, companyType)
+VALUES
+  (4, '3 jaar', 1, '1mansbedrijf');
+  
+INSERT INTO DBS2_GOOD
+  (advertID, condition)
+VALUES
+  (1, 'zo goed als nieuw');
+
+INSERT INTO DBS2_GOOD
+  (advertID, condition)
+VALUES
+  (2, 'zo goed als nieuw');
+
+INSERT INTO DBS2_GOOD
+  (advertID, condition)
+VALUES
+  (3, 'bekrast');
+  
+INSERT INTO DBS2_FAVORITE_ADVERT
+  (favoriteAdvertID, userID, advertID)
+VALUES
+  (1, 1, 1);
+
+INSERT INTO DBS2_FAVORITE_ADVERT
+  (favoriteAdvertID, userID, advertID)
+VALUES
+  (2, 1, 2);
+
+INSERT INTO DBS2_FAVORITE_ADVERT
+  (favoriteAdvertID, userID, advertID)
+VALUES
+  (3, 1, 4);
+
+INSERT INTO DBS2_OFFER
+  (offerID, userID, advertID, amount)
+VALUES
+  (1, 1, 4, 20.25);
+  
+INSERT INTO DBS2_OFFER
+  (offerID, userID, advertID, amount)
+VALUES
+  (2, 3, 1, 3.25);
+
+INSERT INTO DBS2_PHOTO
+  (photoID, path, advertID)
+VALUES
+  (1, 'C:\adverts\photos\crappykoptelefoon.jpg', 1);
+
+INSERT INTO DBS2_PHOTO
+  (photoID, path, advertID)
+VALUES
+  (2, 'C:\adverts\photos\koptelefooncraptastic.jpg', 1);
+
+INSERT INTO DBS2_PHOTO
+  (photoID, path, advertID)
+VALUES
+  (3, 'C:\adverts\photos\mooiekoptelefoon.jpg', 2);
+
+INSERT INTO DBS2_PHOTO
+  (photoID, path, advertID)
+VALUES
+  (4, 'C:\adverts\photos\mooiekoptelefoon2.jpg', 2);
+
+INSERT INTO DBS2_PHOTO
+  (photoID, path, advertID)
+VALUES
+  (5, 'C:\adverts\photos\laklaarszijkant.jpg', 3);
